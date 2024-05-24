@@ -1,1 +1,1 @@
-from reinformer import ReinFormer
+from .reinformer import ReinFormer

@@ -81,7 +81,6 @@ def experiment(variant):
         Trainer = ReinFormerTrainer(
             state_dim=state_dim,
             act_dim=act_dim,
-            env_name=d4rl_env,
             device=device,
             variant=variant
         )
@@ -189,7 +188,6 @@ if __name__ == "__main__":
     parser.add_argument("--n_heads", type=int, default=8)
     parser.add_argument("--dropout_p", type=float, default=0.1)
     parser.add_argument("--grad_norm", type=float, default=0.25)
-    parser.add_argument("--alpha", type=float, default=1.0)
     parser.add_argument("--tau", type=float, default=0.99)
     parser.add_argument("--batch_size", type=int, default=128)  
     parser.add_argument("--lr", type=float, default=1e-4)

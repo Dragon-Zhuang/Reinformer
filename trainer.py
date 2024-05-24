@@ -13,7 +13,13 @@ class ReinFormerTrainer:
         device,
         variant
     ):
-        super().__init__(state_dim, act_dim, device, variant)
+        super().__init__()
+                
+        self.state_dim = state_dim
+        self.act_dim = act_dim
+        self.device = device
+        self.grad_norm = variant["grad_norm"]
+
         self.model = ReinFormer(
             state_dim=state_dim,
             act_dim=act_dim,
@@ -36,11 +42,7 @@ class ReinFormerTrainer:
             self.optimizer,
             lambda steps: min((steps+1)/variant["warmup_steps"], 1)
         )
-        self.state_dim = state_dim
-        self.act_dim = act_dim
-        self.device = device
-        self.grad_norm = variant["grad_norm"]
-        self.alpha = variant["alpha"]
+
         self.tau = variant["tau"]
         self.context_len=variant["context_len"]
 
