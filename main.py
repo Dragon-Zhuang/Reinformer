@@ -27,9 +27,7 @@ def experiment(variant):
     env = variant["env"]
     dataset = variant["dataset"]
     
-    if dataset == "human":
-        variant["batch_size"] = 4
-    elif dataset == "complete":
+    if dataset == "complete":
         variant["batch_size"] = 16
     if env == "kitchen":
         d4rl_env = f"{env}-{dataset}-v0"
@@ -37,7 +35,7 @@ def experiment(variant):
         d4rl_env = f"{env}-{dataset}-v1"
     elif env in ["halfcheetah", "hopper", "walker2d", "antmaze"]:
         d4rl_env = f"{env}-{dataset}-v2"
-    if env == "antmaze":
+    if env in ["kitchen", "maze2d", "antmaze"]:
         variant["num_eval_ep"] = 100
     if env == "hopper":
         if dataset == "medium" or dataset == "meidum-replay":

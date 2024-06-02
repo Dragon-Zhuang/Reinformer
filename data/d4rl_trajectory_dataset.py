@@ -46,8 +46,8 @@ class D4RLTrajectoryDataset(Dataset):
         states, returns, returns_to_go = [], [], []
         for traj in self.trajectories:
             if "antmaze" in dataset_path:
-                traj["rewards"] = traj["rewards"] * 100 # still sparse reward, just scale by 100 times
-                # traj["rewards"] = traj["rewards"] * 100 + 1 # Not sparse reward
+                # reward modification for antmaze
+                traj["rewards"] = traj["rewards"] * 100 + 1
             states.append(traj["observations"])
             returns.append(traj["rewards"].sum())
             # calculate returns to go 
