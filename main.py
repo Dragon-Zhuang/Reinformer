@@ -107,7 +107,6 @@ def experiment(variant):
                 (
                     timesteps,
                     states,
-                    next_states,
                     actions,
                     returns_to_go,
                     rewards,
@@ -118,7 +117,6 @@ def experiment(variant):
                 (
                     timesteps,
                     states,
-                    next_states,
                     actions,
                     returns_to_go,
                     rewards,
@@ -128,7 +126,6 @@ def experiment(variant):
             loss = Trainer.train_step(
                 timesteps=timesteps,
                 states=states,
-                next_states=next_states,
                 actions=actions,
                 returns_to_go=returns_to_go,
                 rewards=rewards,

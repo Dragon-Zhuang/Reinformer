@@ -17,13 +17,14 @@ def download_d4rl_data():
         os.makedirs(data_dir)
 
     # Gym-v2
-    for env_name in ["walker2d","halfcheetah","hopper"]:
-        for dataset_type in ["medium-v2", "medium-replay-v2", "medium-expert-v2"]: 
+    # for env_name in ["walker2d","halfcheetah","hopper"]:
+        # for dataset_type in ["medium-v2", "medium-replay-v2", "medium-expert-v2"]: 
     # Maze2d-v1
     # for env_name in ["maze2d"]:
         # for dataset_type in ["umaze-v1", "medium-v1", "large-v1"]:
     # Antmaze-v2
-    # for env_name in ["antmaze"]:
+    for env_name in ["antmaze"]:
+        for dataset_type in ["medium-diverse-v2"]:
         # for dataset_type in ["umaze-v2", "umaze-diverse-v2", "medium-play-v2", "medium-diverse-v2", "large-play-v2", "large-diverse-v2"]:
     # Ktichen-v0
     # for env_name in ["kitchen"]:
@@ -35,7 +36,7 @@ def download_d4rl_data():
             print("processing: ", name)
 
             env = gym.make(name)
-            dataset = d4rl.qlearning_dataset(env)
+            dataset = env.get_dataset()
 
             N = dataset["rewards"].shape[0]
             data_ = collections.defaultdict(list)
@@ -52,7 +53,7 @@ def download_d4rl_data():
                     final_timestep = dataset["timeouts"][i]
                 else:
                     final_timestep = (episode_step == 1000-1)
-                for k in ["observations", "next_observations", "actions", "rewards", "terminals"]:
+                for k in ["observations", "actions", "rewards", "terminals"]:
                     data_[k].append(dataset[k][i])
                 if done_bool or final_timestep:
                     episode_step = 0

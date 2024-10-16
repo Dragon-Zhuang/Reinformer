@@ -66,10 +66,6 @@ class D4RLTrajectoryDataset(Dataset):
                 traj["observations"] - self.state_mean
             ) / self.state_std
 
-            traj["next_observations"] = (
-                traj["next_observations"] - self.state_mean
-            ) / self.state_std
-
         # calculate returns max, mean, std
         returns = np.array(returns)
         self.return_stats = [
@@ -99,9 +95,6 @@ class D4RLTrajectoryDataset(Dataset):
             states = torch.from_numpy(
                 traj["observations"][si : si + self.context_len]
             )
-            next_states = torch.from_numpy(
-                traj["next_observations"][si : si + self.context_len]
-            )
             actions = torch.from_numpy(
                 traj["actions"][si : si + self.context_len]
             )
@@ -129,18 +122,6 @@ class D4RLTrajectoryDataset(Dataset):
                     torch.zeros(
                         ([padding_len] + list(states.shape[1:])),
                         dtype=states.dtype,
-                    ),
-                ],
-                dim=0,
-            )
-
-            next_states = torch.from_numpy(traj["next_observations"])
-            next_states = torch.cat(
-                [
-                    next_states,
-                    torch.zeros(
-                        ([padding_len] + list(next_states.shape[1:])),
-                        dtype=next_states.dtype,
                     ),
                 ],
                 dim=0,
@@ -195,7 +176,6 @@ class D4RLTrajectoryDataset(Dataset):
         return (
             timesteps,
             states,
-            next_states,
             actions,
             returns_to_go,
             rewards,

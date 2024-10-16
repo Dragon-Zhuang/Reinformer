@@ -58,7 +58,6 @@ class ReinFormerTrainer:
         self,
         timesteps,
         states,
-        next_states,
         actions,
         returns_to_go,
         rewards,
@@ -68,7 +67,6 @@ class ReinFormerTrainer:
         # data to gpu ------------------------------------------------
         timesteps = timesteps.to(self.device)      # B x T
         states = states.to(self.device)            # B x T x state_dim
-        next_states = next_states.to(self.device)  # B x T x state_dim
         actions = actions.to(self.device)          # B x T x act_dim
         returns_to_go = returns_to_go.to(self.device).unsqueeze(
             dim=-1
